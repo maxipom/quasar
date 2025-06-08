@@ -10,7 +10,7 @@ public class MessageBuilder {
         for (String[] words : messages) {
             for (int i = 0; i < messageLength; i++) {
                 if (words.length != messageLength) {
-                    throw new InvalidMessageLengthException("Los mensajes no tienen la misma longitud");
+                    throw new InvalidMessageLengthException("Messages must have the same length");
                 }
                 String word = words[i];
                 String lastWord = completeMessage[i];

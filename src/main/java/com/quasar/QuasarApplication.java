@@ -11,8 +11,4 @@ public class QuasarApplication {
     public static void main(String[] args) {
         SpringApplication.run(QuasarApplication.class, args);
     }
-
-    // @GetMapping("/")
-    // public String holaMundo() {
-    // }
 }
