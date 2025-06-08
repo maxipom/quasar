@@ -9,15 +9,15 @@ import org.apache.commons.math3.fitting.leastsquares.LevenbergMarquardtOptimizer
 
 import com.lemmingapex.trilateration.TrilaterationFunction;
 import com.quasar.exception.PositionUndeterminableException;
-import com.quasar.model.Satelite;
+import com.quasar.model.Satellite;
 
 public class Triangulator {
 
-    private final Satelite firstSatelite;
-    private final Satelite secondSatelite;
-    private final Satelite thridSatelite;
+    private final Satellite firstSatelite;
+    private final Satellite secondSatelite;
+    private final Satellite thridSatelite;
 
-    public Triangulator(Satelite firstSatelite, Satelite secondSatelite, Satelite thridSatelite) {
+    public Triangulator(Satellite firstSatelite, Satellite secondSatelite, Satellite thridSatelite) {
         this.firstSatelite = firstSatelite;
         this.secondSatelite = secondSatelite;
         this.thridSatelite = thridSatelite;
