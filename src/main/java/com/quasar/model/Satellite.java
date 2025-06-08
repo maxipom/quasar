@@ -2,11 +2,11 @@ package com.quasar.model;
 
 import java.awt.Point;
 
-public class Satelite {
+public class Satellite {
     public String name;
     public Point position;
 
-    public Satelite(String name, Point position){
+    public Satellite(String name, Point position) {
         this.name = name;
         this.position = position;
     }
