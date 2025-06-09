@@ -1,12 +1,12 @@
 package com.quasar.model;
 
-public class SateliteStatus {
+public class SatelliteStatus {
 
     public String name;
     public Float distance;
     public String[] message;
 
-    public SateliteStatus(String name, Float distance, String[] message) {
+    public SatelliteStatus(String name, Float distance, String[] message) {
         this.name = name;
         this.distance = distance;
         this.message = message;

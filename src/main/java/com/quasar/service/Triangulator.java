@@ -13,21 +13,21 @@ import com.quasar.model.Satellite;
 
 public class Triangulator {
 
-    private final Satellite firstSatelite;
-    private final Satellite secondSatelite;
-    private final Satellite thridSatelite;
+    private final Satellite firstSatellite;
+    private final Satellite secondSatellite;
+    private final Satellite thridSatellite;
 
-    public Triangulator(Satellite firstSatelite, Satellite secondSatelite, Satellite thridSatelite) {
-        this.firstSatelite = firstSatelite;
-        this.secondSatelite = secondSatelite;
-        this.thridSatelite = thridSatelite;
+    public Triangulator(Satellite firstSatellite, Satellite secondSatellite, Satellite thridSatellite) {
+        this.firstSatellite = firstSatellite;
+        this.secondSatellite = secondSatellite;
+        this.thridSatellite = thridSatellite;
     }
 
     public Point GetLocation(double[] distances) {
         double[][] positions = {
-            {firstSatelite.position.x, firstSatelite.position.y},
-            {secondSatelite.position.x, secondSatelite.position.y},
-            {thridSatelite.position.x, thridSatelite.position.y},};
+            {firstSatellite.position.x, firstSatellite.position.y},
+            {secondSatellite.position.x, secondSatellite.position.y},
+            {thridSatellite.position.x, thridSatellite.position.y},};
 
         TrilaterationFunction trilaterationFunction = new TrilaterationFunction(positions, distances);
         LeastSquaresProblem problem = new LeastSquaresBuilder()

@@ -2,9 +2,9 @@ package com.quasar.model;
 
 public class TopSecretRequest {
 
-    public SateliteStatus[] satellites;
+    public SatelliteStatus[] satellites;
 
-    public TopSecretRequest(SateliteStatus[] satellites) {
+    public TopSecretRequest(SatelliteStatus[] satellites) {
         this.satellites = satellites;
     }
 }

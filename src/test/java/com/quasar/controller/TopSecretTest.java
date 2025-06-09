@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
-import com.quasar.model.SateliteStatus;
+import com.quasar.model.SatelliteStatus;
 import com.quasar.model.TopSecretRequest;
 import com.quasar.model.TopSecretResponse;
 
@@ -16,10 +16,10 @@ public class TopSecretTest {
     @Test
     public void testResponseOk() {
         TopSecret controller = new TopSecret();
-        SateliteStatus[] statuses = new SateliteStatus[]{
-            new SateliteStatus("kenobi", 538.52f, new String[]{"este", "", "", "mensaje", ""}),
-            new SateliteStatus("skywalker", 141.42f, new String[]{"", "es", "", "", "secreto"}),
-            new SateliteStatus("sato", 509.90f, new String[]{"este", "", "un", "", ""})
+        SatelliteStatus[] statuses = new SatelliteStatus[]{
+            new SatelliteStatus("kenobi", 538.52f, new String[]{"este", "", "", "mensaje", ""}),
+            new SatelliteStatus("skywalker", 141.42f, new String[]{"", "es", "", "", "secreto"}),
+            new SatelliteStatus("sato", 509.90f, new String[]{"este", "", "un", "", ""})
         };
         TopSecretRequest payload = new TopSecretRequest(statuses);
         var response = controller.DecodeEnemyInformation(payload);
@@ -37,10 +37,10 @@ public class TopSecretTest {
     public void testPositionToBeZero() {
         TopSecret controller = new TopSecret();
 
-        SateliteStatus[] statuses = new SateliteStatus[]{
-            new SateliteStatus("kenobi", 538.52f, new String[]{"este", "", "", "mensaje", ""}),
-            new SateliteStatus("skywalker", 141.42f, new String[]{"", "es", "", "", "secreto"}),
-            new SateliteStatus("sato", 509.90f, new String[]{"este", "", "un", "", ""})
+        SatelliteStatus[] statuses = new SatelliteStatus[]{
+            new SatelliteStatus("kenobi", 538.52f, new String[]{"este", "", "", "mensaje", ""}),
+            new SatelliteStatus("skywalker", 141.42f, new String[]{"", "es", "", "", "secreto"}),
+            new SatelliteStatus("sato", 509.90f, new String[]{"este", "", "un", "", ""})
         };
         TopSecretRequest payload = new TopSecretRequest(statuses);
         var response = controller.DecodeEnemyInformation(payload);
@@ -63,10 +63,10 @@ public class TopSecretTest {
     public void testMessageBuild() {
         TopSecret controller = new TopSecret();
 
-        SateliteStatus[] statuses = new SateliteStatus[]{
-            new SateliteStatus("kenobi", 538.52f, new String[]{"este", "", "", "mensaje", ""}),
-            new SateliteStatus("skywalker", 141.42f, new String[]{"", "es", "", "", "secreto"}),
-            new SateliteStatus("sato", 509.90f, new String[]{"este", "", "un", "", ""})
+        SatelliteStatus[] statuses = new SatelliteStatus[]{
+            new SatelliteStatus("kenobi", 538.52f, new String[]{"este", "", "", "mensaje", ""}),
+            new SatelliteStatus("skywalker", 141.42f, new String[]{"", "es", "", "", "secreto"}),
+            new SatelliteStatus("sato", 509.90f, new String[]{"este", "", "un", "", ""})
         };
         TopSecretRequest payload = new TopSecretRequest(statuses);
         var response = controller.DecodeEnemyInformation(payload);

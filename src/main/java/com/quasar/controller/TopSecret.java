@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.quasar.model.SateliteStatus;
+import com.quasar.model.SatelliteStatus;
 import com.quasar.model.Satellite;
 import com.quasar.model.TopSecretRequest;
 import com.quasar.model.TopSecretResponse;
@@ -23,7 +23,7 @@ public class TopSecret {
 
     @PostMapping("/")
     public ResponseEntity<TopSecretResponse> DecodeEnemyInformation(@RequestBody TopSecretRequest request) {
-        SateliteStatus[] statuses = request.satellites;
+        SatelliteStatus[] statuses = request.satellites;
         Satellite sat1 = new Satellite("Kenobi", new Point(-500, -200));
         Satellite sat2 = new Satellite("Skywalker", new Point(100, -100));
         Satellite sat3 = new Satellite("Sato", new Point(500, 100));
