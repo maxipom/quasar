@@ -21,7 +21,7 @@ public class TriangulatorTest {
         Triangulator triangulatorService = new Triangulator(sat1, sat2, sat3);
 
         double[] distances = {2, 2, 2};
-        Point location = triangulatorService.GetLocation(distances);
+        Point location = triangulatorService.getLocation(distances);
 
         assertEquals(3, location.x);
         assertEquals(1, location.y);
@@ -39,7 +39,7 @@ public class TriangulatorTest {
 
         assertThrowsExactly(
                 PositionUndeterminableException.class,
-                () -> triangulatorService.GetLocation(distances)
+                () -> triangulatorService.getLocation(distances)
         );
     }
 }
