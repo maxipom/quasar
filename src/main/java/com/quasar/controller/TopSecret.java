@@ -8,6 +8,7 @@ import java.util.List;
 import com.quasar.model.*;
 import com.quasar.service.SatelliteService;
 import com.quasar.service.TransmissionService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.quasar.service.MessageBuilder;
 import com.quasar.service.Triangulator;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/topsecret")
@@ -30,6 +32,9 @@ public class TopSecret {
 
     @PostMapping("/")
     public ResponseEntity<Transmission> DecodeEnemyInformation(@RequestBody TopSecretRequest request) {
+        try {
+
+
         SatelliteStatus[] statuses = request.satellites;
         if (statuses.length != 3) {
             return ResponseEntity.badRequest().body(null);
@@ -50,6 +55,10 @@ public class TopSecret {
         );
 
         return ResponseEntity.ok(response);
+        } catch (Exception e) {
+           throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                   "Not enough information to determine position or message.");
+        }
     }
 }
 

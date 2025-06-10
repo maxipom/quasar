@@ -2,9 +2,11 @@ package com.quasar.service;
 
 import com.quasar.model.SatelliteEntity;
 import com.quasar.model.Transmission;
+import org.springframework.stereotype.Service;
 
 import java.awt.*;
 
+@Service
 public class TransmissionService {
     public Transmission calculateTransmission(SatelliteEntity satellite1,
                                                  SatelliteEntity satellite2,
