@@ -2,12 +2,12 @@ package com.quasar.model;
 
 import java.awt.Point;
 
-public class TopSecretResponse {
+public class Transmission {
 
     public Point position;
     public String message;
 
-    public TopSecretResponse(Point position, String message) {
+    public Transmission(Point position, String message) {
         this.position = position;
         this.message = message;
     }

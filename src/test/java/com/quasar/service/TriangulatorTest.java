@@ -4,19 +4,20 @@ import java.awt.Point;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
+
+import com.quasar.model.SatelliteEntity;
 import org.junit.jupiter.api.Test;
 
 import com.quasar.exception.PositionUndeterminableException;
-import com.quasar.model.Satellite;
 
 public class TriangulatorTest {
 
     @Test
     public void testGetLocation() {
 
-        Satellite sat1 = new Satellite("A", new Point(1, 1));
-        Satellite sat2 = new Satellite("B", new Point(3, 3));
-        Satellite sat3 = new Satellite("C", new Point(5, 1));
+        SatelliteEntity sat1 = new SatelliteEntity("A",null,null, new Point(1, 1));
+        SatelliteEntity sat2 = new SatelliteEntity("B",null,null, new Point(3, 3));
+        SatelliteEntity sat3 = new SatelliteEntity("C",null,null, new Point(5, 1));
 
         Triangulator triangulatorService = new Triangulator(sat1, sat2, sat3);
 
@@ -29,9 +30,9 @@ public class TriangulatorTest {
 
     @Test
     public void testGetLocationThrowsWhenImpossible() {
-        Satellite sat1 = new Satellite("Kenobi", new Point(-500, -200));
-        Satellite sat2 = new Satellite("Skywalker", new Point(100, -100));
-        Satellite sat3 = new Satellite("Sato", new Point(500, 100));
+        SatelliteEntity sat1 = new SatelliteEntity("A",null, new String[]{"este", "", "", "mensaje", ""}, new Point(1, 1));
+        SatelliteEntity sat2 = new SatelliteEntity("B",null,new String[]{"", "es", "", "", "secreto"}, new Point(3, 3));
+        SatelliteEntity sat3 = new SatelliteEntity("C",null,new String[]{"este", "", "un", "", ""}, new Point(5, 1));
 
         Triangulator triangulatorService = new Triangulator(sat1, sat2, sat3);
 

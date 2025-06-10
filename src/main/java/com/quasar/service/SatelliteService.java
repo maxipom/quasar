@@ -1,6 +1,5 @@
 package com.quasar.service;
 
-import com.quasar.model.Satellite;
 import org.springframework.stereotype.Service;
 
 import com.quasar.model.SatelliteEntity;
@@ -15,6 +14,19 @@ public class SatelliteService {
 
     public SatelliteService(SatelliteRepository satelliteRepository) {
         this.satelliteRepository = satelliteRepository;
+    }
+
+    public SatelliteEntity findAndUpdateSatellite(String name, Double distance, String[] message) {
+        SatelliteEntity entity = satelliteRepository.findById(name.toLowerCase()).orElse(null);
+
+        if (entity == null) {
+            throw new IllegalArgumentException("Satellite with name " + name + " does not exist.");
+        } else {
+            double newDistance = distance != null ? distance : entity.distance;
+            String[] newMessage = message != null ? message : entity.message;
+
+            return satelliteRepository.save(new SatelliteEntity(entity.name, newDistance, newMessage, entity.position));
+        }
     }
 
     public SatelliteEntity saveOrUpdateSatellite(String name, Double distance, String[] message, Point position) {

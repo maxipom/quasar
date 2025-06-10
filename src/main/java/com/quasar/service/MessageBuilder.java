@@ -4,7 +4,7 @@ import com.quasar.exception.InvalidMessageLengthException;
 
 public class MessageBuilder {
 
-    public String GetMessage(String[][] messages) {
+    public String getMessage(String[][] messages) {
         int messageLength = messages[0].length;
         String[] completeMessage = new String[messageLength];
         for (String[] words : messages) {

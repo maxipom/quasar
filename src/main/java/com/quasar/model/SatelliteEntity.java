@@ -10,14 +10,14 @@ public class SatelliteEntity {
 
     @Id
     public String name;
-    public double distance;
+    public Double distance;
     public String[] message;
     public Point position;
 
     public SatelliteEntity() {
     }
 
-    public SatelliteEntity(String name, double distance, String[] message, Point position) {
+    public SatelliteEntity(String name, Double distance, String[] message, Point position) {
         this.name = name;
         this.distance = distance;
         this.message = message;
