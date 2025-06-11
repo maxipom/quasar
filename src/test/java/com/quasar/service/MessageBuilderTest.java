@@ -14,10 +14,11 @@ public class MessageBuilderTest {
         String[][] messages = {
             {"este", "", "", "mensaje", ""},
             {"", "es", "", "", "secreto"},
-            {"este", "", "un", "", ""},};
+            {"este", "", "un", "", ""},
+        };
 
         MessageBuilder messageBuilder = new MessageBuilder();
-        String completeMessage = messageBuilder.GetMessage(messages);
+        String completeMessage = messageBuilder.getMessage(messages);
 
         assertEquals("este es un mensaje secreto", completeMessage);
     }
@@ -31,7 +32,7 @@ public class MessageBuilderTest {
             {"este", "", "un", "", ""},};
 
         MessageBuilder messageBuilder = new MessageBuilder();
-        String completeMessage = messageBuilder.GetMessage(messages);
+        String completeMessage = messageBuilder.getMessage(messages);
 
         assertEquals("este es un  ", completeMessage);
     }
@@ -48,7 +49,7 @@ public class MessageBuilderTest {
 
         assertThrowsExactly(
                 InvalidMessageLengthException.class,
-                () -> messageBuilder.GetMessage(messages)
+                () -> messageBuilder.getMessage(messages)
         );
     }
 

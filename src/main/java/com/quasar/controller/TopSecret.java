@@ -1,49 +1,64 @@
 package com.quasar.controller;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import com.quasar.model.*;
+import com.quasar.service.SatelliteService;
+import com.quasar.service.TransmissionService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.quasar.model.Satellite;
-import com.quasar.model.SateliteStatus;
-import com.quasar.model.TopSecretRequest;
-import com.quasar.model.TopSecretResponse;
 import com.quasar.service.MessageBuilder;
 import com.quasar.service.Triangulator;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/topsecret")
 public class TopSecret {
+    private final SatelliteService satelliteService;
+    private final TransmissionService transmissionService;
+
+    public TopSecret(SatelliteService satelliteService, TransmissionService transmissionService) {
+        this.satelliteService = satelliteService;
+        this.transmissionService = transmissionService;
+    }
 
     @PostMapping("/")
-    public ResponseEntity<TopSecretResponse> DecodeEnemyInformation(@RequestBody TopSecretRequest request) {
-        SateliteStatus[] statuses = request.satellites;
-        Satellite sat1 = new Satellite("Kenobi", new Point(-500, -200));
-        Satellite sat2 = new Satellite("Skywalker", new Point(100, -100));
-        Satellite sat3 = new Satellite("Sato", new Point(500, 100));
+    public ResponseEntity<Transmission> DecodeEnemyInformation(@RequestBody TopSecretRequest request) {
+        try {
 
-        Triangulator triangulator = new Triangulator(sat1, sat2, sat3);
-        double[] distances = Arrays.stream(statuses)
-                .filter(status -> status.distance > 0)
-                .mapToDouble(status -> status.distance)
-                .toArray();
-        String[][] messages = Arrays.stream(statuses)
-                .map(status -> status.message)
-                .toArray(String[][]::new);
 
-        MessageBuilder messageBuilder = new MessageBuilder();
-        String message = messageBuilder.GetMessage(messages);
-        Point distance = triangulator.GetLocation(distances);
+        SatelliteStatus[] statuses = request.satellites;
+        if (statuses.length != 3) {
+            return ResponseEntity.badRequest().body(null);
+        }
+        List<SatelliteEntity> satellites = new ArrayList<>();
+        for(SatelliteStatus status : statuses) {
+          SatelliteEntity satelliteFromDB = this.satelliteService.findAndUpdateSatellite(
+                  status.name,
+                  status.distance,
+                  status.message
+          );
+            satellites.add(satelliteFromDB);
+        }
+        Transmission response = this.transmissionService.calculateTransmission(
+                satellites.get(0),
+                satellites.get(1),
+                satellites.get(2)
+        );
 
-        TopSecretResponse response = new TopSecretResponse(
-                distance,
-                message);
         return ResponseEntity.ok(response);
+        } catch (Exception e) {
+           throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                   "Not enough information to determine position or message.");
+        }
     }
 }
 
