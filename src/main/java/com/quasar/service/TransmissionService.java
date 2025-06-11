@@ -9,9 +9,9 @@ import java.awt.*;
 @Service
 public class TransmissionService {
     public Transmission calculateTransmission(SatelliteEntity satellite1,
-                                                 SatelliteEntity satellite2,
-                                                 SatelliteEntity satellite3) {
-        Triangulator triangulator = new Triangulator(satellite1,satellite2,satellite3);
+                                              SatelliteEntity satellite2,
+                                              SatelliteEntity satellite3) {
+        Triangulator triangulator = new Triangulator(satellite1, satellite2, satellite3);
         double[] distances = new double[]{
                 satellite1.distance,
                 satellite2.distance,

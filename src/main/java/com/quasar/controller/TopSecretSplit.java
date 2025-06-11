@@ -3,16 +3,12 @@ package com.quasar.controller;
 import com.quasar.model.SatelliteEntity;
 import com.quasar.model.SatelliteRequest;
 import com.quasar.model.Transmission;
-import com.quasar.service.MessageBuilder;
 import com.quasar.service.SatelliteService;
 import com.quasar.service.TransmissionService;
-import com.quasar.service.Triangulator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.awt.*;
 
 @RestController
 @RequestMapping("/topsecret_split")
@@ -24,9 +20,10 @@ public class TopSecretSplit {
         this.satelliteService = satelliteService;
         this.transmissionService = transmissionService;
     }
+
     @PostMapping("/{name}")
-    public ResponseEntity<SatelliteEntity> UpdateSatellite(@PathVariable String name, @RequestBody SatelliteRequest satelliteRequest){
-        SatelliteEntity satellite =  this.satelliteService.saveOrUpdateSatellite(
+    public ResponseEntity<SatelliteEntity> UpdateSatellite(@PathVariable String name, @RequestBody SatelliteRequest satelliteRequest) {
+        SatelliteEntity satellite = this.satelliteService.saveOrUpdateSatellite(
                 name,
                 satelliteRequest.distance,
                 satelliteRequest.message,
@@ -41,7 +38,7 @@ public class TopSecretSplit {
             SatelliteEntity kenobi = this.satelliteService.getSatellite("kenobi");
             SatelliteEntity skywalker = this.satelliteService.getSatellite("skywalker");
             SatelliteEntity sato = this.satelliteService.getSatellite("sato");
-            if(kenobi == null|| skywalker == null || sato == null) {
+            if (kenobi == null || skywalker == null || sato == null) {
                 return ResponseEntity.notFound().build();
             }
 

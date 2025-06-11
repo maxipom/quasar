@@ -1,23 +1,22 @@
 package com.quasar.service;
 
-import java.awt.Point;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
-
+import com.quasar.exception.PositionUndeterminableException;
 import com.quasar.model.SatelliteEntity;
 import org.junit.jupiter.api.Test;
 
-import com.quasar.exception.PositionUndeterminableException;
+import java.awt.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 public class TriangulatorTest {
 
     @Test
     public void testGetLocation() {
 
-        SatelliteEntity sat1 = new SatelliteEntity("A",null,null, new Point(1, 1));
-        SatelliteEntity sat2 = new SatelliteEntity("B",null,null, new Point(3, 3));
-        SatelliteEntity sat3 = new SatelliteEntity("C",null,null, new Point(5, 1));
+        SatelliteEntity sat1 = new SatelliteEntity("A", null, null, new Point(1, 1));
+        SatelliteEntity sat2 = new SatelliteEntity("B", null, null, new Point(3, 3));
+        SatelliteEntity sat3 = new SatelliteEntity("C", null, null, new Point(5, 1));
 
         Triangulator triangulatorService = new Triangulator(sat1, sat2, sat3);
 
@@ -30,9 +29,9 @@ public class TriangulatorTest {
 
     @Test
     public void testGetLocationThrowsWhenImpossible() {
-        SatelliteEntity sat1 = new SatelliteEntity("A",null, new String[]{"este", "", "", "mensaje", ""}, new Point(1, 1));
-        SatelliteEntity sat2 = new SatelliteEntity("B",null,new String[]{"", "es", "", "", "secreto"}, new Point(3, 3));
-        SatelliteEntity sat3 = new SatelliteEntity("C",null,new String[]{"este", "", "un", "", ""}, new Point(5, 1));
+        SatelliteEntity sat1 = new SatelliteEntity("A", null, new String[]{"este", "", "", "mensaje", ""}, new Point(1, 1));
+        SatelliteEntity sat2 = new SatelliteEntity("B", null, new String[]{"", "es", "", "", "secreto"}, new Point(3, 3));
+        SatelliteEntity sat3 = new SatelliteEntity("C", null, new String[]{"este", "", "un", "", ""}, new Point(5, 1));
 
         Triangulator triangulatorService = new Triangulator(sat1, sat2, sat3);
 

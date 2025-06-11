@@ -1,6 +1,6 @@
 package com.quasar.model;
 
-import java.awt.Point;
+import java.awt.*;
 
 public class Transmission {
 

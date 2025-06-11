@@ -1,15 +1,14 @@
 package com.quasar.service;
 
-import java.awt.Point;
-
+import com.lemmingapex.trilateration.TrilaterationFunction;
+import com.quasar.exception.PositionUndeterminableException;
 import com.quasar.model.SatelliteEntity;
 import org.apache.commons.math3.fitting.leastsquares.LeastSquaresBuilder;
 import org.apache.commons.math3.fitting.leastsquares.LeastSquaresOptimizer;
 import org.apache.commons.math3.fitting.leastsquares.LeastSquaresProblem;
 import org.apache.commons.math3.fitting.leastsquares.LevenbergMarquardtOptimizer;
 
-import com.lemmingapex.trilateration.TrilaterationFunction;
-import com.quasar.exception.PositionUndeterminableException;
+import java.awt.*;
 
 public class Triangulator {
 
@@ -25,9 +24,9 @@ public class Triangulator {
 
     public Point getLocation(double[] distances) {
         double[][] positions = {
-            {firstSatellite.position.x, firstSatellite.position.y},
-            {secondSatellite.position.x, secondSatellite.position.y},
-            {thirdSatellite.position.x, thirdSatellite.position.y},};
+                {firstSatellite.position.x, firstSatellite.position.y},
+                {secondSatellite.position.x, secondSatellite.position.y},
+                {thirdSatellite.position.x, thirdSatellite.position.y},};
 
         TrilaterationFunction trilaterationFunction = new TrilaterationFunction(positions, distances);
         LeastSquaresProblem problem = new LeastSquaresBuilder()

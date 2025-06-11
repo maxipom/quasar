@@ -1,10 +1,10 @@
 package com.quasar.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
+import com.quasar.exception.InvalidMessageLengthException;
 import org.junit.jupiter.api.Test;
 
-import com.quasar.exception.InvalidMessageLengthException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 public class MessageBuilderTest {
 
@@ -12,9 +12,9 @@ public class MessageBuilderTest {
     public void testNormalMessage() {
 
         String[][] messages = {
-            {"este", "", "", "mensaje", ""},
-            {"", "es", "", "", "secreto"},
-            {"este", "", "un", "", ""},
+                {"este", "", "", "mensaje", ""},
+                {"", "es", "", "", "secreto"},
+                {"este", "", "un", "", ""},
         };
 
         MessageBuilder messageBuilder = new MessageBuilder();
@@ -27,9 +27,9 @@ public class MessageBuilderTest {
     public void testUncompleteMessage() {
 
         String[][] messages = {
-            {"este", "", "", "", ""},
-            {"", "es", "", "", ""},
-            {"este", "", "un", "", ""},};
+                {"este", "", "", "", ""},
+                {"", "es", "", "", ""},
+                {"este", "", "un", "", ""},};
 
         MessageBuilder messageBuilder = new MessageBuilder();
         String completeMessage = messageBuilder.getMessage(messages);
@@ -41,9 +41,9 @@ public class MessageBuilderTest {
     public void testDifferentLenghts() {
 
         String[][] messages = {
-            {"este", "", "", "", ""},
-            {"", "es"},
-            {"este", "", "un", "mensaje", "distinto"},};
+                {"este", "", "", "", ""},
+                {"", "es"},
+                {"este", "", "un", "mensaje", "distinto"},};
 
         MessageBuilder messageBuilder = new MessageBuilder();
 
