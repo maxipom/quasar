@@ -1,5 +1,6 @@
 package com.quasar.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -11,18 +12,22 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 @Configuration
 public class MongoConfig {
+    @Value("${mongo.uri}")
+    private String mongoUri;
+
+    @Value("${mongo.db}")
+    private String mongoDbName;
 
     @Bean
     public MongoClient mongoClient() {
-        Dotenv dotenv = Dotenv.load();
-        String uri = dotenv.get("MONGO_URI");
-        return MongoClients.create(uri);
+        System.out.println("Connecting to MongoDB at: " + this.mongoUri);
+        return MongoClients.create(this.mongoUri);
     }
 
     @Bean
     public MongoTemplate mongoTemplate(MongoClient mongoClient) {
-        Dotenv dotenv = Dotenv.load();
-        String dbName = dotenv.get("MONGO_DB_NAME");
-        return new MongoTemplate(mongoClient, dbName);
+        System.out.println("Connecting to MongoDB at mongoDbName: " + this.mongoDbName);
+
+        return new MongoTemplate(mongoClient, this.mongoDbName);
     }
 }
