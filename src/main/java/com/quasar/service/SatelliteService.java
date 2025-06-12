@@ -1,9 +1,8 @@
 package com.quasar.service;
 
-import org.springframework.stereotype.Service;
-
 import com.quasar.model.SatelliteEntity;
 import com.quasar.repository.SatelliteRepository;
+import org.springframework.stereotype.Service;
 
 import java.awt.*;
 

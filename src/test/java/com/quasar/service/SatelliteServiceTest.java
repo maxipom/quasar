@@ -6,7 +6,7 @@ import com.quasar.repository.SatelliteRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
