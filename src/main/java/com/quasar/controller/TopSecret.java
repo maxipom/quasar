@@ -1,7 +1,6 @@
 package com.quasar.controller;
 
 import com.quasar.model.SatelliteEntity;
-import com.quasar.model.SatelliteStatus;
 import com.quasar.model.TopSecretRequest;
 import com.quasar.model.Transmission;
 import com.quasar.service.SatelliteService;
@@ -31,18 +30,19 @@ public class TopSecret {
     @PostMapping("/")
     public ResponseEntity<Transmission> DecodeEnemyInformation(@RequestBody TopSecretRequest request) {
         try {
-
-
-            SatelliteStatus[] statuses = request.satellites;
-            if (statuses.length != 3) {
+            SatelliteEntity[] satellitesToUpdate = request.satellites;
+            if (satellitesToUpdate.length != 3) {
                 return ResponseEntity.badRequest().body(null);
             }
-            List<SatelliteEntity> satellites = new ArrayList<>();
-            for (SatelliteStatus status : statuses) {
-                SatelliteEntity satelliteFromDB = this.satelliteService.findAndUpdateSatellite(status.name, status.distance, status.message);
-                satellites.add(satelliteFromDB);
+            List<SatelliteEntity> updatedSatellites = new ArrayList<>();
+            for (SatelliteEntity satellite : satellitesToUpdate) {
+                SatelliteEntity satelliteFromDB = this.satelliteService.findAndUpdateSatellite(satellite.name, satellite);
+                updatedSatellites.add(satelliteFromDB);
             }
-            Transmission response = this.transmissionService.calculateTransmission(satellites.get(0), satellites.get(1), satellites.get(2));
+            Transmission response = this.transmissionService.calculateTransmission(
+                    updatedSatellites.get(0),
+                    updatedSatellites.get(1),
+                    updatedSatellites.get(2));
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {

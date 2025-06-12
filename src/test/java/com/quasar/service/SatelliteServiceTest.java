@@ -1,4 +1,3 @@
-// src/test/java/com/quasar/service/SatelliteServiceTest.java
 package com.quasar.service;
 
 import com.quasar.model.SatelliteEntity;
@@ -26,36 +25,67 @@ public class SatelliteServiceTest {
     @Test
     public void testFindAndUpdateSatelliteErrorOnNew() {
         String name = "kenobi";
-        Double distance = 100.0;
-        String[] message = {"este", "", "", "mensaje", ""};
+        SatelliteEntity incoming = new SatelliteEntity(name, 100.0, new String[]{"este", "", "", "mensaje", ""}, null);
 
         when(satelliteRepository.findById(name)).thenReturn(Optional.empty());
-        when(satelliteRepository.save(any(SatelliteEntity.class)))
-                .thenAnswer(invocation -> invocation.getArgument(0));
 
         assertThrowsExactly(IllegalArgumentException.class,
-                () -> satelliteService.findAndUpdateSatellite(name, distance, message));
-
+                () -> satelliteService.findAndUpdateSatellite(name, incoming));
     }
 
     @Test
     public void testFindAndUpdateSatellite_UpdateExisting() {
         String name = "kenobi";
-        Double oldDistance = 50.0;
-        Double newDistance = 120.0;
-        String[] oldMessage = {"", "", "", "", ""};
-        String[] newMessage = {"este", "", "", "mensaje", ""};
-        SatelliteEntity existing = new SatelliteEntity(name, oldDistance, oldMessage, new Point(0, 0));
+        SatelliteEntity existing = new SatelliteEntity(name, 50.0, new String[]{"", "", "", "", ""}, new Point(0, 0));
+        SatelliteEntity incoming = new SatelliteEntity(name, 120.0, new String[]{"este", "", "", "mensaje", ""}, null);
 
         when(satelliteRepository.findById(name)).thenReturn(Optional.of(existing));
         when(satelliteRepository.save(any(SatelliteEntity.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
-        SatelliteEntity result = satelliteService.findAndUpdateSatellite(name, newDistance, newMessage);
+        SatelliteEntity result = satelliteService.findAndUpdateSatellite(name, incoming);
 
         assertEquals(name, result.name);
-        assertEquals(newDistance, result.distance);
-        assertArrayEquals(newMessage, result.message);
+        assertEquals(120.0, result.distance);
+        assertArrayEquals(incoming.message, result.message);
+
+        assertEquals(existing.position, result.position);
         verify(satelliteRepository).save(any(SatelliteEntity.class));
+    }
+
+    @Test
+    public void testSaveOrUpdateSatellite_CreateNew() {
+        String name = "skywalker";
+        SatelliteEntity incoming = new SatelliteEntity(name, 115.5, new String[]{"", "es", "", "", "secreto"}, new Point(1, 1));
+
+        when(satelliteRepository.findById(name)).thenReturn(Optional.empty());
+        when(satelliteRepository.save(any(SatelliteEntity.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+
+        SatelliteEntity result = satelliteService.saveOrUpdateSatellite(name, incoming);
+
+        assertEquals(name.toLowerCase(), result.name);
+        assertEquals(115.5, result.distance);
+        assertArrayEquals(incoming.message, result.message);
+        assertEquals(new Point(1, 1), result.position);
+    }
+
+    @Test
+    public void testSaveOrUpdateSatellite_UpdateExisting() {
+        String name = "sato";
+        SatelliteEntity existing = new SatelliteEntity(name, 80.0, new String[]{"", "", "", "", ""}, new Point(2, 2));
+        SatelliteEntity incoming = new SatelliteEntity(name, null, new String[]{"este", "", "un", "", ""}, null);
+
+        when(satelliteRepository.findById(name)).thenReturn(Optional.of(existing));
+        when(satelliteRepository.save(any(SatelliteEntity.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+
+        SatelliteEntity result = satelliteService.saveOrUpdateSatellite(name, incoming);
+
+        assertEquals(name, result.name);
+        assertArrayEquals(incoming.message, result.message);
+
+        assertEquals(80.0, result.distance);
+        assertEquals(new Point(2, 2), result.position);
     }
 }

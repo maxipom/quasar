@@ -15,33 +15,42 @@ public class SatelliteService {
         this.satelliteRepository = satelliteRepository;
     }
 
-    public SatelliteEntity findAndUpdateSatellite(String name, Double distance, String[] message) {
+    public SatelliteEntity findAndUpdateSatellite(String name, SatelliteEntity satellite) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Satellite name cannot be null or empty.");
+        }
         SatelliteEntity entity = satelliteRepository.findById(name.toLowerCase()).orElse(null);
-
         if (entity == null) {
             throw new IllegalArgumentException("Satellite with name " + name + " does not exist.");
         } else {
-            double newDistance = distance != null ? distance : entity.distance;
-            String[] newMessage = message != null ? message : entity.message;
-
-            return satelliteRepository.save(new SatelliteEntity(entity.name, newDistance, newMessage, entity.position));
+            return updateExistingSatellite(entity, satellite);
         }
     }
 
-    public SatelliteEntity saveOrUpdateSatellite(String name, Double distance, String[] message, Point position) {
+    public SatelliteEntity saveOrUpdateSatellite(String name, SatelliteEntity satellite) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Satellite name cannot be null or empty.");
+        }
         SatelliteEntity entity = satelliteRepository.findById(name.toLowerCase()).orElse(null);
-
         if (entity == null) {
-            // Create new entity
+            Double distance = satellite.distance;
+            String[] message = satellite.message;
+            Point position = satellite.position;
             return satelliteRepository.save(new SatelliteEntity(name.toLowerCase(), distance, message, position));
         } else {
-            // Update only provided fields, keep others as is
-            double newDistance = distance != null ? distance : entity.distance;
-            String[] newMessage = message != null ? message : entity.message;
-            Point newPosition = position != null ? position : entity.position;
-
-            return satelliteRepository.save(new SatelliteEntity(entity.name, newDistance, newMessage, newPosition));
+            return updateExistingSatellite(entity, satellite);
         }
+    }
+
+    public SatelliteEntity updateExistingSatellite(SatelliteEntity existing, SatelliteEntity satellite) {
+        if (existing == null) {
+            throw new IllegalArgumentException("Satellite does not exist.");
+        }
+        Double distance = satellite.distance != null ? satellite.distance : existing.distance;
+        String[] message = satellite.message != null ? satellite.message : existing.message;
+        Point position = satellite.position != null ? satellite.position : existing.position;
+
+        return satelliteRepository.save(new SatelliteEntity(existing.name, distance, message, position));
     }
 
     public SatelliteEntity getSatellite(String name) {

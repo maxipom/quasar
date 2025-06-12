@@ -1,6 +1,7 @@
 # Operación Fuego de Quasar 🔥🛰️
 
-El objetivo del proyecto es interceptar un mensaje de auxilio imperial a través de tres satélites, determinando su posición y contenido a pesar de interferencias y mensajes incompletos.
+El objetivo del proyecto es interceptar un mensaje de auxilio imperial a través de tres satélites, determinando su
+posición y contenido a pesar de interferencias y mensajes incompletos.
 
 ---
 
@@ -15,14 +16,18 @@ El objetivo del proyecto es interceptar un mensaje de auxilio imperial a través
 ---
 
 ## 🧪 Cómo ejecutar el proyecto
+
 ### 1. Generar archivo .env con las variables de entorno
+
 En la raíz del proyecto, crea un archivo `.env` con las siguientes variables:
 
 ```dotenv
 MONGO_URI=
 MONGO_DB_NAME=
   ```  
+
 > Los valores deben ser configurados con los datos provistos en el email.
+
 ### 2. Instalar dependencias
 
 `./mvnw install`
@@ -32,12 +37,17 @@ MONGO_DB_NAME=
 `./mvnw spring-boot:run`
 
 ### 4. Ejecutar tests
+
 `./mvnw test`
 
 ## 📡 Endpoints disponibles
+
 ### POST /topsecret/
+
 #### Objetivo: enviar la información de los 3 satélites en una sola request.
+
 #### Request Body:
+
 ```json
 {
   "satellites": [
@@ -59,29 +69,39 @@ MONGO_DB_NAME=
   ]
 }
 ```
+
 #### Respuesta exitosa (200 OK):
+
 ```json
 {
   "position": { "x": -100.0, "y": 75.5 },
   "message": "este es un mensaje secreto"
 }
 ```
+
 #### Respuesta con error (404 Not Found):
+
 ```json
 {
   "error": "Not enough information to determine position or message."
 }
 ```
+
 ### POST /topsecret_split/{satelite_name}
+
 #### Objetivo: Registrar un satélite individualmente.
+
 #### Request Body:
+
 ```json
 {
   "distance": 100.0,
   "message": ["este", "", "", "mensaje", ""]
 }
 ```
+
 #### Respuesta exitosa (200 OK):
+
 ```json
 {
   "name": "sato",
@@ -93,11 +113,15 @@ MONGO_DB_NAME=
   }
 }
 ```
+
 ### GET /topsecret_split/
+
 #### Objetivo: Obtener la información de la transmisión enemiga.
 
 #### Respuesta exitosa (200 OK):
+
 > Si la información de los 3 satelites es válida
+
 ```json
 {
   "position": { "x": -100.0, "y": 75.5 },
@@ -106,7 +130,9 @@ MONGO_DB_NAME=
 ```
 
 #### Respuesta con error (404 Not Found):
+
 > Si la información es incorrecta
+
 ```json
 {
   "error": "Not enough information"
