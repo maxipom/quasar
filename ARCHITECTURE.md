@@ -1,6 +1,7 @@
 # Arquitectura del Proyecto - Operación Fuego de Quasar 🚀
 
-Este proyecto resuelve el desafío técnico de MercadoLibre "Operación Fuego de Quasar", decodificando un mensaje secreto y determinando la posición de una nave a partir de datos incompletos de tres satélites.
+Este proyecto resuelve el desafío técnico de MercadoLibre "Operación Fuego de Quasar", decodificando un mensaje secreto
+y determinando la posición de una nave a partir de datos incompletos de tres satélites.
 
 ---
 
@@ -36,8 +37,8 @@ Este proyecto resuelve el desafío técnico de MercadoLibre "Operación Fuego de
 - Se utiliza **MongoDB** para almacenar los datos de satélites recibidos en `/topsecret_split/{satellite_name}`.
 - Los datos se acumulan hasta que puedan ser procesados para obtener una respuesta completa.
 
-
 ---
+
 ## ⚙️ Tecnologías
 
 - Java 17
@@ -49,6 +50,7 @@ Este proyecto resuelve el desafío técnico de MercadoLibre "Operación Fuego de
 ---
 
 ## 📦 Organización del Código
+
 ```text
 com.quasar
 ├── controller     # Exposición de API REST
@@ -57,6 +59,7 @@ com.quasar
 ├── repository     # Acceso a MongoDB
 └── config         # Configuración del entorno y beans
 ```
+
 ---
 
 ## 🧪 Testing

@@ -1,7 +1,6 @@
 package com.quasar.controller;
 
 import com.quasar.model.SatelliteEntity;
-import com.quasar.model.SatelliteRequest;
 import com.quasar.model.Transmission;
 import com.quasar.service.SatelliteService;
 import com.quasar.service.TransmissionService;
@@ -22,14 +21,12 @@ public class TopSecretSplit {
     }
 
     @PostMapping("/{name}")
-    public ResponseEntity<SatelliteEntity> UpdateSatellite(@PathVariable String name, @RequestBody SatelliteRequest satelliteRequest) {
-        SatelliteEntity satellite = this.satelliteService.saveOrUpdateSatellite(
+    public ResponseEntity<SatelliteEntity> UpdateSatellite(@PathVariable String name, @RequestBody SatelliteEntity satellite) {
+        SatelliteEntity updatedSatellite = this.satelliteService.saveOrUpdateSatellite(
                 name,
-                satelliteRequest.distance,
-                satelliteRequest.message,
-                satelliteRequest.position
+                satellite
         );
-        return ResponseEntity.ok(satellite);
+        return ResponseEntity.ok(updatedSatellite);
     }
 
     @GetMapping("/")
